@@ -31,6 +31,8 @@ public class Knapsack01 {
                     } else {
                         itemTable[i][j] = v[i];
                     }
+                } else {
+                    itemTable[i][j] = 0;
                 }
             }
 //            Arrays.stream(itemTable[i]).forEach(k -> System.out.print(k + " "));
@@ -40,13 +42,13 @@ public class Knapsack01 {
         // Traverse Items
         int valIdx = v.length - 1;
         int wtIdx = total;
-        int itemCounter = 0;
         while (valIdx >= 0 && wtIdx >= 0) {
             if (valIdx > 0 && itemTable[valIdx][wtIdx] == itemTable[valIdx - 1][wtIdx]) { // valIdx row is not in it
             } else { // valIdx row is in it
-                items.add(v[valIdx]);
-                itemCounter++;
-                wtIdx = wtIdx - wt[valIdx];
+                if (itemTable[valIdx][wtIdx] > 0) {
+                    items.add(v[valIdx]);
+                    wtIdx = wtIdx - wt[valIdx];
+                }
             }
             valIdx--;
         }
