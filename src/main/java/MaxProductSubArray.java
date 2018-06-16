@@ -7,8 +7,8 @@ public class MaxProductSubArray {
 //        int[] input = {1, 2, -1, 34, 5, 7, -1, 9, 56, 8, -1, 98};
 //        int[] input = {6, -3, -10, 0, 2};
 //        int[] input = {-1, -3, -10, 0, 60};
-        int[] input = {-2, -3, 0, -2, -40};
-
+//        int[] input = {-2, -3, 0, -2, -40};
+        int[] input = {-1, 2, 3, -4, -6};
         ProductGroup x = new MaxProductSubArray().longestRunningProduct(input);
         System.out.println(x.getProd());
         System.out.println(x);
@@ -20,15 +20,14 @@ public class MaxProductSubArray {
         List<ProductGroup> pgs = new ArrayList<>();
         // if there are 0s, split at 0s
         List<ProductGroup> subGroupsAroundZeros = this.getSubGroupsAroundZeros(input);
-        for (ProductGroup pg : subGroupsAroundZeros) {
-            pgs.add(getSubGroupsAroundNegatives(pg.getSubArr()));
-        }
         // if there are odd number of negatives
         // create 4 possible subgroups that can have the max product
         // get the max of all of them
+        for (ProductGroup pg : subGroupsAroundZeros) {
+            pgs.add(getSubGroupsAroundNegatives(pg.getSubArr()));
+        }
         return Collections.max(pgs);
     }
-
 
     private List<ProductGroup> getSubGroupsAroundZeros(int[] input) {
         List<ProductGroup> productGroups = new ArrayList<>();
@@ -71,16 +70,15 @@ public class MaxProductSubArray {
             }
 
             // Split on first negative to get two groups
-            ProductGroup pg1 = new ProductGroup(listOfIntegers.subList(0, Math.max(0, posOfFirstNegative - 1)));
+            ProductGroup pg1 = new ProductGroup(listOfIntegers.subList(0, Math.max(0, posOfFirstNegative)));
             ProductGroup pg2 = new ProductGroup(listOfIntegers.subList(Math.min(posOfFirstNegative + 1, listOfIntegers.size() - 1), listOfIntegers.size() - 1));
             productGroups.add(pg1);
             productGroups.add(pg2);
 
-
             // Split on last negative to get two groups
             if (posOfFirstNegative != posOfLastNegative) { // if there is only one negative number, there will be only two subgroups
-                ProductGroup pg3 = new ProductGroup(listOfIntegers.subList(0, Math.max(0, posOfLastNegative - 1)));
-                ProductGroup pg4 = new ProductGroup(listOfIntegers.subList(Math.min(listOfIntegers.size() - 1, posOfLastNegative + 1), listOfIntegers.size() - 1));
+                ProductGroup pg3 = new ProductGroup(listOfIntegers.subList(0, Math.max(0, posOfLastNegative)));
+                ProductGroup pg4 = new ProductGroup(listOfIntegers.subList(Math.min(listOfIntegers.size() - 1, posOfLastNegative + 1), listOfIntegers.size()));
                 productGroups.add(pg3);
                 productGroups.add(pg4);
             }
