@@ -108,14 +108,12 @@ public class LinkedListCustom {
   public void reverse() {
     Node prev = null;
     Node curr = head;
-    Node nxt = curr.next;
+    Node nxt;
     while (curr != null) {
+      nxt = curr.next;
       curr.next = prev;
       prev = curr;
       curr = nxt;
-      if (nxt != null) {
-        nxt = nxt.next;
-      }
     }
     head = prev;
   }
