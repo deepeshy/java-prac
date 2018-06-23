@@ -118,12 +118,11 @@ public class LinkedListCustom {
     while (curr != null) {
       curr.next = prev;
       prev = curr;
-      head = curr;
       curr = nxt;
-
       if (nxt != null) {
         nxt = nxt.next;
       }
     }
+    head = prev;
   }
 }
