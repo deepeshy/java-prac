@@ -39,15 +39,15 @@ public class LinkedListCustom {
     }
   }
 
-  public void addTail(int val) {
+  public void addTail(Node newNode) {
     if (head == null) {
-      initializeLinkedList(val);
+      head = newNode;
     } else {
       Node n = head;
       while (n.next != null) {
         n = n.next;
       }
-      n.next = new Node(val);
+      n.next = newNode;
       n.next.next = null;
     }
   }
@@ -63,13 +63,15 @@ public class LinkedListCustom {
   }
 
   public void display() {
-    Node next = this.head;
-    while (next != null) {
-      System.out.print(next.getValue());
-      System.out.print("->");
-      next = next.getNext();
+    if (!hasCycle()) {
+      Node next = this.head;
+      while (next != null) {
+        System.out.print(next.getValue());
+        System.out.print("->");
+        next = next.getNext();
+      }
+      System.out.println();
     }
-    System.out.println();
   }
 
   public static void main(String[] args) {
@@ -80,11 +82,11 @@ public class LinkedListCustom {
     linkedListCustom.display();
 
     LinkedListCustom linkedListCustom2 = new LinkedListCustom();
-    linkedListCustom2.addTail(10);
-    linkedListCustom2.addTail(12);
-    linkedListCustom2.addTail(3);
-    linkedListCustom2.addTail(32);
-    linkedListCustom2.addTail(35);
+    linkedListCustom2.addTail(new Node(10));
+    linkedListCustom2.addTail(new Node(12));
+    linkedListCustom2.addTail(new Node(3));
+    linkedListCustom2.addTail(new Node(32));
+    linkedListCustom2.addTail(new Node(35));
     linkedListCustom2.display();
     linkedListCustom.reverse();
     linkedListCustom2.reverse();
@@ -93,28 +95,72 @@ public class LinkedListCustom {
     linkedListCustom2.display();
 
     LinkedListCustom linkedListCustomOneElement = new LinkedListCustom();
-    linkedListCustomOneElement.addTail(10);
+    linkedListCustomOneElement.addTail(new Node(10));
     linkedListCustomOneElement.reverse();
     linkedListCustomOneElement.display();
 
     LinkedListCustom linkedListCustomTwoElement = new LinkedListCustom();
-    linkedListCustomTwoElement.addTail(10);
-    linkedListCustomTwoElement.addTail(13);
+    linkedListCustomTwoElement.addTail(new Node(10));
+    linkedListCustomTwoElement.addTail(new Node(13));
     linkedListCustomTwoElement.reverse();
     linkedListCustomTwoElement.display();
+    System.out.println(linkedListCustomTwoElement.hasCycle());
+
+    LinkedListCustom linkedListWithCycle = new LinkedListCustom();
+    Node cycle = new Node(10);
+    linkedListWithCycle.addTail(cycle);
+    Node node2 = new Node(13);
+    linkedListWithCycle.addTail(node2);
+    node2.next = cycle;
+    linkedListWithCycle.reverse();
+    linkedListWithCycle.display();
+    System.out.println(linkedListWithCycle.hasCycle());
 
   }
 
-  public void reverse() {
-    Node prev = null;
-    Node curr = head;
-    Node nxt;
-    while (curr != null) {
-      nxt = curr.next;
-      curr.next = prev;
-      prev = curr;
-      curr = nxt;
+  public boolean hasCycle() {
+    if (head == null || head.next == null) {
+      return false;
     }
-    head = prev;
+
+    Node fast = head;
+    Node slow = head;
+
+    while (slow != null && fast != null && fast.next != null) {
+      slow = slow.next;
+      fast = fast.next.next;
+      if (fast == slow) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public Node getTail(int n) {
+    return null;
+  }
+
+  public Node getMid() {
+    return null;
+  }
+
+  public int size() {
+    return 0;
+  }
+
+
+  public void reverse() {
+    if (!hasCycle()) {
+      Node prev = null;
+      Node curr = head;
+      Node nxt;
+      while (curr != null) {
+        nxt = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = nxt;
+      }
+      head = prev;
+    }
   }
 }
