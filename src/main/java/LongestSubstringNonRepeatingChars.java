@@ -2,9 +2,9 @@ import java.util.*;
 
 public class LongestSubstringNonRepeatingChars {
     public static void main(String[] args) {
-//        System.out.println(longestSubstringNonRepeatingChars("abccdefghij"));
+        System.out.println(longestSubstringNonRepeatingChars("abccdefghij"));
 //        System.out.println(longestSubstringNonRepeatingCharsFixedArray("abccdefghij"));
-        printAscii();
+//        printAscii();
     }
 
     private static void printAscii() {

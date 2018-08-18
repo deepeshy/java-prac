@@ -25,6 +25,4 @@ public class StackOverflowCyclic {
       this.c1 = new C1();
     }
   }
-
-
 }

@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 public class Signage {
 
   public static void main(String[] args) {
-    System.out.println(new Signage(14645741).display());
+    System.out.println(new Signage(1469845741).display());
   }
 
   private int num;

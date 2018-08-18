@@ -8,7 +8,8 @@ public class MaxProductSubArray {
 //        int[] input = {6, -3, -10, 0, 2};
 //        int[] input = {-1, -3, -10, 0, 60};
 //        int[] input = {-2, -3, 0, -2, -40};
-        int[] input = {-1, 2, 3, -4, -6};
+//        int[] input = {-1, 2, 3, -4, -6};
+        int[] input = {0, 0};
         ProductGroup x = new MaxProductSubArray().longestRunningProduct(input);
         System.out.println(x.getProd());
         System.out.println(x);
