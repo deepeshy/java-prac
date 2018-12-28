@@ -19,9 +19,9 @@ public class MaxProdSubarrayOnlyProduct {
                 currMax = Math.max(currMax, currMax * inp[i]);
                 currMin = Math.min(currMin, currMin * inp[i]);
             } else {
-                int currMaxNeg = Math.max(currMin * inp[i], inp[i]);
+                int newMaxUsingOldMin = Math.max(currMin * inp[i], inp[i]);
                 currMin = Math.min(currMax * inp[i], inp[i]);
-                currMax = currMaxNeg;
+                currMax = newMaxUsingOldMin;
             }
             max = Math.max(max, currMax);
         }
