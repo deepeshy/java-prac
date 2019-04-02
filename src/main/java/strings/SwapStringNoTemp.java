@@ -1,3 +1,5 @@
+package strings;
+
 public class SwapStringNoTemp {
     public static void main(String[] args) {
         String s1 = "First String";
