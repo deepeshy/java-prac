@@ -24,6 +24,8 @@ public class Graph {
     edges[node2].add(node1);
   }
 
+  ////////////////// DFS Starts Here //////////////////////
+
   private void dfs(int startingNode) {
     boolean visited[] = new boolean[V];
     dfs(startingNode, visited);
@@ -39,7 +41,6 @@ public class Graph {
     }
   }
 
-
   private void dfsStack(int origin) {
     Deque<Integer> stack = new ArrayDeque<>();
     stack.push(origin);
@@ -48,16 +49,44 @@ public class Graph {
       Integer current = stack.pop();
       if (!visited[current]) {
         System.out.print(current + "->");
+
+        for (int i : edges[current]) {
+          if (!visited[i]) {
+            stack.push(i);
+          }
+        }
         visited[current] = true;
       }
 
+    }
+  }
+
+  ////////////////// DFS Ends Here ////////////////////////
+
+  ////////////////// BFS Starts Here ///////////////////////
+
+  private void bfs(int orig) {
+    boolean[] visited = new boolean[V];
+    Deque<Integer> queue = new ArrayDeque<>();
+    queue.addFirst(orig);
+
+    while (!queue.isEmpty()) {
+      Integer current = queue.pollLast();
+      if (!visited[current]) {
+        System.out.print(current + "->");
+        visited[current] = true;
+      }
       for (int i : edges[current]) {
         if (!visited[i]) {
-          stack.push(i);
+          System.out.print(i + "->");
+          queue.addFirst(i);
+          visited[i] = true;
         }
       }
     }
   }
+
+////////////////// BFS Ends Here /////////////////////////
 
   public static void main(String[] args) {
     Graph graph = new Graph(10);
@@ -77,5 +106,7 @@ public class Graph {
     graph.dfsStack(1);
     System.out.println();
     graph.dfs(1);
+    System.out.println();
+    graph.bfs(1);
   }
 }
