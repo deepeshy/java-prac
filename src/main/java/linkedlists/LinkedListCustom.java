@@ -2,6 +2,7 @@ package linkedlists;
 
 public class LinkedListCustom {
 
+
   private Node head;
 
   public static class Node {
@@ -74,6 +75,70 @@ public class LinkedListCustom {
     }
   }
 
+
+  public boolean hasCycle() {
+    if (head == null || head.next == null) {
+      return false;
+    }
+
+    Node fast = head;
+    Node slow = head;
+
+    while (slow != null && fast != null && fast.next != null) {
+      slow = slow.next;
+      fast = fast.next.next;
+      if (fast == slow) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public Node getTail(int n) {
+    return null;
+  }
+
+  public Node getMid() {
+    int mid = (size() + 1) / 2;
+    Node curr = head;
+    int counter = 0;
+    while (curr != null) {
+      counter++;
+      if (counter == mid) {
+        break;
+      }
+
+      curr = curr.next;
+    }
+    return curr;
+  }
+
+  public int size() {
+    Node curr = head;
+    int counter = 0;
+    while (curr != null) {
+      curr = curr.next;
+      counter++;
+    }
+    return counter;
+  }
+
+
+  public void reverse() {
+    if (!hasCycle()) {
+      Node prev = null;
+      Node curr = head;
+      Node nxt;
+      while (curr != null) {
+        nxt = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = nxt;
+      }
+      head = prev;
+    }
+  }
+
   public static void main(String[] args) {
     LinkedListCustom linkedListCustom = new LinkedListCustom();
     linkedListCustom.addHead(10);
@@ -116,51 +181,9 @@ public class LinkedListCustom {
     linkedListWithCycle.display();
     System.out.println(linkedListWithCycle.hasCycle());
 
+    System.out.println("Mid: " + linkedListCustom2.getMid().value);
+    System.out.println("Size: " + linkedListCustom2.size());
+
   }
 
-  public boolean hasCycle() {
-    if (head == null || head.next == null) {
-      return false;
-    }
-
-    Node fast = head;
-    Node slow = head;
-
-    while (slow != null && fast != null && fast.next != null) {
-      slow = slow.next;
-      fast = fast.next.next;
-      if (fast == slow) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  public Node getTail(int n) {
-    return null;
-  }
-
-  public Node getMid() {
-    return null;
-  }
-
-  public int size() {
-    return 0;
-  }
-
-
-  public void reverse() {
-    if (!hasCycle()) {
-      Node prev = null;
-      Node curr = head;
-      Node nxt;
-      while (curr != null) {
-        nxt = curr.next;
-        curr.next = prev;
-        prev = curr;
-        curr = nxt;
-      }
-      head = prev;
-    }
-  }
 }
