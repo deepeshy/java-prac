@@ -16,13 +16,85 @@ public class LinkedListNumberAddition {
     Node first = new Node(5);
     first.next = new Node(2);
     first.next.next = new Node(7);
+    first.next.next.next = new Node(6);
 
     Node second = new Node(5);
     second.next = new Node(2);
     second.next.next = new Node(7);
 
+    // add mutates the inputs, so once called it messes up the results
     print(add(first, second));
+//    print(addWithoutReversing(first, second));
+  }
 
+
+  private static int len(Node h) {
+    int l = 0;
+    Node curr = h;
+    while (curr != null) {
+      l++;
+      curr = curr.next;
+    }
+    return l;
+  }
+
+  private static Node addWithoutReversing(Node f, Node s) {
+    Node result = new Node(-1);
+    Node resultIter = result;
+
+    Node fIter = f;
+    Node sIter = s;
+
+    int lf = len(f);
+    int ls = len(s);
+    int diff = lf - ls; // diff < 0 => f is smaller, >0, s is smaller
+    int skipCounter = 0;
+
+    while (fIter != null || sIter != null) {
+      if (diff < 0 && skipCounter < Math.abs(diff)) { // f is smaller
+        skipCounter++;
+        resultIter.next = new Node(sIter.val);
+        sIter = sIter.next;
+      } else if (diff > 0 && skipCounter < Math.abs(diff)) { // s is smaller, pump in nodes from f
+        skipCounter++;
+        resultIter.next = new Node(fIter.val);
+        fIter = fIter.next;
+      } else {
+        resultIter.next = addNodes(fIter, sIter, 0);
+        fIter = fIter.next;
+        sIter = sIter.next;
+      }
+      resultIter = resultIter.next;
+    }
+    // Handle Fat nodes, to take out carry
+    // Eliminate dummy node
+    result = result.next;
+    resultIter = result;// new result iter for handling carry values
+
+    int carryCounter;
+    do {
+      carryCounter = 0;
+      while (resultIter.next != null) {
+        int nextVal = resultIter.next.val;
+        int carry = nextVal / 10;
+        if (carry > 0) {
+          carryCounter++;
+        }
+        resultIter.val = resultIter.val + carry;
+        resultIter.next.val = nextVal % 10;
+        resultIter = resultIter.next;
+      }
+      resultIter = result;
+
+    } while (carryCounter > 0);
+
+    if (result.val >= 10) {
+      Node newHead = new Node(result.val / 10);
+      result.val = result.val % 10;
+      newHead.next = result;
+      return newHead;
+    }
+    return result;
   }
 
   private static void print(Node head) {
