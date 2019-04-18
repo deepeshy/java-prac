@@ -12,6 +12,7 @@ public class BracketMatcher {
     System.out.println(bracketMatcher.isExprBalanced("[{{}}]"));
     System.out.println(bracketMatcher.isExprBalanced("([{}]]}"));
     System.out.println(bracketMatcher.isExprBalanced("{{2{3}55}6}6"));
+    System.out.println(bracketMatcher.isExprBalanced("{{2"));
   }
 
   private Map<Character, Character> bracketPairs = new HashMap<>();
@@ -21,7 +22,6 @@ public class BracketMatcher {
     bracketPairs.put('(', ')');
     bracketPairs.put('[', ']');
   }
-
 
   private boolean isExprBalanced(@NotNull String expr) {
     // Always go for ArrayDeque by default, more complete DS and faster than Stack
@@ -39,7 +39,7 @@ public class BracketMatcher {
         }
       }
     }
-    return true;
+    return b.isEmpty();
   }
 
   // O(1) for checking, faster than traversing keys
