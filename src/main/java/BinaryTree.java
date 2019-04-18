@@ -77,17 +77,17 @@ public class BinaryTree {
   }
 
   public void preOrder() {
-    inOrder(root);
+    preOrder(root);
   }
 
   private void preOrder(Node node) {
     if (node != null) {
       System.out.println(node.val);
       if (node.left != null) {
-        inOrder(node.left);
+        preOrder(node.left);
       }
       if (node.right != null) {
-        inOrder(node.right);
+        preOrder(node.right);
       }
     }
   }
